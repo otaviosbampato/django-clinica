@@ -1,0 +1,43 @@
+{% extends "medical/base.html" %}
+{% block title %}Meu Perfil — Clínica{% endblock %}
+
+{% block content %}
+<div class="page-wrapper" style="max-width:600px;">
+  <div style="margin-bottom:1.5rem;">
+    <a href="{% url 'dashboard' %}" style="color:var(--verde);text-decoration:none;font-size:0.9rem;">
+      <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+    </a>
+  </div>
+  <div class="card-clinica">
+    <div class="card-header-verde">
+      <h2 style="font-size:1.4rem;margin:0;"><i class="fas fa-user-circle"></i> Meu Perfil</h2>
+    </div>
+    <div style="display:grid;gap:1rem;">
+      <div>
+        <span style="font-size:0.8rem;color:#999;text-transform:uppercase;font-weight:600;">Nome Completo</span>
+        <p style="font-size:1.1rem;font-weight:600;margin:0.2rem 0 0;">{{ paciente.nome }}</p>
+      </div>
+      <div>
+        <span style="font-size:0.8rem;color:#999;text-transform:uppercase;font-weight:600;">CPF</span>
+        <p style="font-size:1rem;margin:0.2rem 0 0;">{{ paciente.cpf }}</p>
+      </div>
+      <div>
+        <span style="font-size:0.8rem;color:#999;text-transform:uppercase;font-weight:600;">Data de Nascimento</span>
+        <p style="font-size:1rem;margin:0.2rem 0 0;">{{ paciente.data_nascimento|date:"d/m/Y" }}</p>
+      </div>
+      <div>
+        <span style="font-size:0.8rem;color:#999;text-transform:uppercase;font-weight:600;">Telefone</span>
+        <p style="font-size:1rem;margin:0.2rem 0 0;">{{ paciente.telefone }}</p>
+      </div>
+      <div>
+        <span style="font-size:0.8rem;color:#999;text-transform:uppercase;font-weight:600;">E-mail</span>
+        <p style="font-size:1rem;margin:0.2rem 0 0;">{{ paciente.email|default:"—" }}</p>
+      </div>
+      <div>
+        <span style="font-size:0.8rem;color:#999;text-transform:uppercase;font-weight:600;">Usuário</span>
+        <p style="font-size:1rem;margin:0.2rem 0 0;">{{ user.username }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

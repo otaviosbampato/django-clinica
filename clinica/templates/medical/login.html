@@ -1,0 +1,62 @@
+{% extends "medical/base.html" %}
+{% block title %}Login — Clínica{% endblock %}
+
+{% block content %}
+<div class="hero-login">
+  <div class="login-card">
+
+    <div class="text-center mb-4">
+      <div class="icon-circle">
+        <i class="fas fa-hospital-alt"></i>
+      </div>
+      <h2 class="font-serif mt-2" style="color:var(--verde-escuro);">
+        Clínica<span style="color:var(--verde-claro)">+</span>
+      </h2>
+      <p class="text-muted small">Sistema de Reservas Médicas</p>
+    </div>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label class="form-label fw-500">Usuário</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-user text-muted"></i></span>
+          <input type="text" name="username" class="form-control"
+                 placeholder="Seu usuário" required autofocus>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label fw-500">Senha</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-lock text-muted"></i></span>
+          <input type="password" name="password" class="form-control"
+                 placeholder="Sua senha" required>
+        </div>
+      </div>
+
+      {% if form.errors %}
+      <div class="alert alert-danger py-2 small">
+        <i class="fas fa-exclamation-circle me-1"></i> Usuário ou senha inválidos.
+      </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary w-100 py-2">
+        <i class="fas fa-sign-in-alt me-1"></i> Entrar
+      </button>
+    </form>
+
+    <hr class="my-4" style="border-color:var(--borda)">
+
+    <p class="text-center small text-muted mb-1">
+      Não tem conta?
+      <a href="{% url 'registro' %}" class="fw-semibold" style="color:var(--verde);">Cadastre-se</a>
+    </p>
+    <p class="text-center" style="font-size:.8rem;">
+      <a href="/admin/" class="text-muted">Acesso Administrativo</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "medical/base.html" %}
+{% block title %}Agendar Consulta — Clínica{% endblock %}
+
+{% block content %}
+<div class="page-wrapper" style="max-width:700px;">
+  <div style="margin-bottom:1.5rem;">
+    <a href="{% url 'dashboard' %}" style="color:var(--verde);text-decoration:none;font-size:0.9rem;">
+      <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+    </a>
+  </div>
+
+  <div class="card-clinica">
+    <div class="card-header-verde">
+      <h2 style="font-size:1.4rem;margin:0;"><i class="fas fa-calendar-plus"></i> Agendar Consulta</h2>
+      <p style="margin:0.3rem 0 0;opacity:0.85;font-size:0.9rem;">Escolha o médico e o horário desejado</p>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label class="form-label"><i class="fas fa-stethoscope" style="color:var(--verde)"></i> Especialidade (para filtrar)</label>
+        <select class="form-select" id="filtro-especialidade">
+          <option value="">Todas as especialidades</option>
+          {% for esp in especialidades %}
+          <option value="{{ esp.pk }}">{{ esp.nome }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label"><i class="fas fa-user-md" style="color:var(--verde)"></i> Médico *</label>
+        <select name="medico" class="form-select" id="select-medico" required>
+          <option value="">Selecione um médico</option>
+          {% for m in medicos %}
+          <option value="{{ m.pk }}" data-esp="{{ m.especialidade.pk|default:'' }}">
+            {{ m }} {% if m.especialidade %}— {{ m.especialidade }}{% endif %}
+          </option>
+          {% endfor %}
+        </select>
+        {% if form.medico.errors %}<div class="text-danger small mt-1">{{ form.medico.errors.0 }}</div>{% endif %}
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label"><i class="fas fa-calendar" style="color:var(--verde)"></i> Data e Hora *</label>
+        <input type="datetime-local" name="data_hora" class="form-control" required
+          value="{{ form.data_hora.value|default:'' }}">
+        {% if form.data_hora.errors %}<div class="text-danger small mt-1">{{ form.data_hora.errors.0 }}</div>{% endif %}
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label"><i class="fas fa-comment-medical" style="color:var(--verde)"></i> Observações</label>
+        <textarea name="observacoes" class="form-control" rows="3"
+          placeholder="Descreva brevemente o motivo da consulta...">{{ form.observacoes.value|default:'' }}</textarea>
+      </div>
+
+      {% if form.non_field_errors %}
+      <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      <div style="display:flex;gap:1rem;justify-content:flex-end;">
+        <a href="{% url 'dashboard' %}" class="btn-outline-verde">Cancelar</a>
+        <button type="submit" class="btn-verde"><i class="fas fa-check"></i> Confirmar Agendamento</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('filtro-especialidade').addEventListener('change', function(){
+  const esp = this.value;
+  const opts = document.querySelectorAll('#select-medico option');
+  opts.forEach(opt => {
+    if (!opt.value) return;
+    opt.style.display = (!esp || opt.dataset.esp === esp) ? '' : 'none';
+  });
+  document.getElementById('select-medico').value = '';
+});
+</script>
+{% endblock %}

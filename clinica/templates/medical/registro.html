@@ -1,0 +1,120 @@
+{% extends "medical/base.html" %}
+{% block title %}Cadastro — Clínica{% endblock %}
+
+{% block content %}
+<div class="hero-login">
+  <div class="login-card registro">
+
+    <div class="text-center mb-4">
+      <div class="icon-circle">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      <h2 class="font-serif mt-2" style="color:var(--verde-escuro);">Criar Conta</h2>
+      <p class="text-muted small">Cadastre-se para agendar consultas</p>
+    </div>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="row g-3">
+
+        <div class="col-12">
+          <label class="form-label fw-semibold small">Nome Completo *</label>
+          <input type="text" name="nome" class="form-control{% if form.nome.errors %} is-invalid{% endif %}"
+                 value="{{ form.nome.value|default:'' }}" required>
+          {% if form.nome.errors %}
+          <div class="invalid-feedback">{{ form.nome.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold small">CPF *</label>
+          <input type="text" name="cpf" class="form-control{% if form.cpf.errors %} is-invalid{% endif %}"
+                 placeholder="000.000.000-00"
+                 value="{{ form.cpf.value|default:'' }}" required>
+          {% if form.cpf.errors %}
+          <div class="invalid-feedback">{{ form.cpf.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold small">Data de Nascimento *</label>
+          <input type="date" name="data_nascimento"
+                 class="form-control{% if form.data_nascimento.errors %} is-invalid{% endif %}"
+                 value="{{ form.data_nascimento.value|default:'' }}" required>
+          {% if form.data_nascimento.errors %}
+          <div class="invalid-feedback">{{ form.data_nascimento.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold small">Telefone *</label>
+          <input type="text" name="telefone"
+                 class="form-control{% if form.telefone.errors %} is-invalid{% endif %}"
+                 value="{{ form.telefone.value|default:'' }}" required>
+          {% if form.telefone.errors %}
+          <div class="invalid-feedback">{{ form.telefone.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold small">E-mail</label>
+          <input type="email" name="email" class="form-control"
+                 value="{{ form.email.value|default:'' }}">
+        </div>
+
+        <div class="col-12">
+          <hr style="border-color:var(--borda)">
+          <p class="text-muted small mb-0">
+            <i class="fas fa-lock me-1"></i> Dados de acesso
+          </p>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label fw-semibold small">Usuário *</label>
+          <input type="text" name="username"
+                 class="form-control{% if form.username.errors %} is-invalid{% endif %}"
+                 value="{{ form.username.value|default:'' }}" required>
+          {% if form.username.errors %}
+          <div class="invalid-feedback">{{ form.username.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold small">Senha *</label>
+          <input type="password" name="password1"
+                 class="form-control{% if form.password1.errors %} is-invalid{% endif %}" required>
+          {% if form.password1.errors %}
+          <div class="invalid-feedback">{{ form.password1.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold small">Confirmar Senha *</label>
+          <input type="password" name="password2"
+                 class="form-control{% if form.password2.errors %} is-invalid{% endif %}" required>
+          {% if form.password2.errors %}
+          <div class="invalid-feedback">{{ form.password2.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+      </div>
+
+      {% if form.non_field_errors %}
+      <div class="alert alert-danger mt-3 py-2 small">
+        <i class="fas fa-exclamation-circle me-1"></i> {{ form.non_field_errors }}
+      </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary w-100 py-2 mt-4">
+        <i class="fas fa-user-check me-1"></i> Criar Conta
+      </button>
+    </form>
+
+    <p class="text-center mt-3 small text-muted">
+      Já tem conta?
+      <a href="{% url 'login' %}" class="fw-semibold" style="color:var(--verde);">Fazer login</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}
