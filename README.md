@@ -1,4 +1,8 @@
-# Sistema de Reservas — Clínica+
+# Clínica Django
+
+<div align="center">
+    <img height="150" src="./assets/logo-clean.png">
+</div>
 
 Aplicação web desenvolvida com **Django** para gerenciamento de consultas médicas. Permite que pacientes agendem consultas e que administradores gerenciem médicos, especialidades e agendamentos.
 
