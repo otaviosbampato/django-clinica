@@ -18,3 +18,5 @@ django-widget-tweaks==1.5.1
 # Utilitários
 python-dotenv==1.2.2
 gunicorn==26.0.0
+
+whitenoise==6.9.0
