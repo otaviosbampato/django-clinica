@@ -26,6 +26,17 @@ services:
     depends_on:
       - postgresdb
 
+  djangoapp:
+    build: .
+    container_name: clinica_app
+    ports:
+      - "8000:8000"
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://root:root@postgresdb:5432/clinicadb
+    depends_on:
+      - postgresdb
+
 volumes:
   pgadmin_data:
   postgres_data:
