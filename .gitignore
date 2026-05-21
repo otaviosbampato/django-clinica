@@ -17,3 +17,6 @@ db.sqlite3-journal
 venv/
 ENV/
 env/
+
+# Banco de dados
+/postgres_data/
