@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ ! -f ".venv/bin/activate" ]; then
     echo "Criando ambiente virtual..."
     rm -rf .venv
@@ -14,9 +15,9 @@ fi
 echo "Ativando ambiente virtual..."
 source .venv/bin/activate
 
-echo "Instalando dependências (Django, Psycopg2, Crispy Forms, Dotenv)..."
+echo "Instalando dependências a partir do requirements.txt..."
 pip install --upgrade pip
-pip install django psycopg2-binary django-crispy-forms crispy-bootstrap5 python-dotenv dj-database-url
+pip install -r requirements.txt
 
 cd clinica
 
